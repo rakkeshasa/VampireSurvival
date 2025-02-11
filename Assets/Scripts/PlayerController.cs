@@ -3,11 +3,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
+    private SpriteRenderer sprite;
 
     public Animator anim;
     void Start()
     {
-        
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
@@ -21,6 +22,11 @@ public class PlayerController : MonoBehaviour
         moveInput.Normalize();
 
         transform.position += moveInput * moveSpeed * Time.deltaTime;
+
+        if (moveInput.x > 0f)
+            sprite.flipX = true;
+        else if (moveInput.x < 0f)
+            sprite.flipX = false;
 
         if(moveInput != Vector3.zero)
         {
