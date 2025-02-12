@@ -85,6 +85,8 @@ public class EnemyController : MonoBehaviour
         {
             enemyPool.ReturnEnemy(gameObject);
         }
+
+        DamageUIController.instance.SetDamageUI(damage, transform.position);
     }
 
     public void TakeDamage(float damage, bool shouldKnockback)

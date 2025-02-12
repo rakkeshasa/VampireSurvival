@@ -10,6 +10,7 @@ public class EnemyDamager : MonoBehaviour
 
     [SerializeField] 
     private bool shouldKnockBack;
+    public bool destroyParent = true;
 
     void Start()
     {
@@ -31,6 +32,10 @@ public class EnemyDamager : MonoBehaviour
             if(transform.localScale.x == 0f)
             {
                 Destroy(gameObject);
+                if(destroyParent)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
             }
         }
     }
