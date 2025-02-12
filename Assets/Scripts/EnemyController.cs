@@ -4,16 +4,25 @@ public class EnemyController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
-    public float moveSpeed;
     private Transform target;
 
+    public float moveSpeed;
+    public float health = 5f;
+
+    // Damage
     [SerializeField]
     private float damage;
-
     private float delayTime = 1f;
     private float hitCounter;
+    [SerializeField]
+    private float knockBackTime = .5f;
+    private float knockBackCounter;
+
+    // EnemyPooling
     private EnemyPool enemyPool;
     private float despawnDistance = 20f;
+
+
 
     void Start()
     {
@@ -26,9 +35,29 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if(knockBackCounter > 0)
+        {
+            knockBackCounter -= Time.deltaTime;
+
+            if(moveSpeed > 0)
+            {
+                moveSpeed = -moveSpeed * 2f;
+            }
+
+            if(knockBackCounter <= 0)
+            {
+                moveSpeed = Mathf.Abs(moveSpeed * .5f);
+            }
+        }
+
         rb.linearVelocity = (target.position - transform.position).normalized * moveSpeed;
-        sprite.flipX = rb.linearVelocityX > 0;
-        if(hitCounter > 0f)
+
+        if (knockBackCounter <= 0)
+        {
+            sprite.flipX = rb.linearVelocityX > 0;
+        }
+
+        if (hitCounter > 0f)
         {
             hitCounter -= Time.deltaTime;
         }
@@ -36,7 +65,6 @@ public class EnemyController : MonoBehaviour
         if (Vector3.Distance(target.position, transform.position) > despawnDistance)
         {
             enemyPool.ReturnEnemy(gameObject); // 몬스터 반환
-            Debug.Log("Enemy Clear");
         }
     }
 
@@ -46,6 +74,26 @@ public class EnemyController : MonoBehaviour
         {
             PlayerHealthController.instance.TakeDamage(damage);
             hitCounter = delayTime;
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            enemyPool.ReturnEnemy(gameObject);
+        }
+    }
+
+    public void TakeDamage(float damage, bool shouldKnockback)
+    {
+        TakeDamage(damage);
+
+        if(shouldKnockback)
+        {
+            knockBackCounter = knockBackTime;
         }
     }
 }
