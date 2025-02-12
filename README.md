@@ -217,3 +217,43 @@ void Update()
 }
 ```    
 또한 몬스터가 넉백류 스킬에 맞으면 넉백시간동안 반대 방향으로 밀려나도록 했으며, 넉백동안에는 반대 반향으로 밀려나도 sprite가 좌우반전이 안일어나도록 했습니다.</br>
+
+```
+private List<DamageUI> DamagePool = new List<DamageUI>();
+
+public void SetDamageUI(float damage, Vector3 location)
+{
+    DamageUI newUI = SpawnDamageUI();
+    newUI.Setup(damage);
+    newUI.gameObject.SetActive(true);
+    newUI.transform.position = location;
+
+}
+
+public DamageUI SpawnDamageUI()
+{
+    DamageUI OutputUI = null;
+
+    if(DamagePool.Count == 0)
+    {
+        OutputUI = Instantiate(damageUI, canvas);
+    }
+    else
+    {
+        OutputUI = DamagePool[0];
+        DamagePool.RemoveAt(0);
+    }
+
+    return OutputUI;
+}
+
+public void DespawnDamageUI(DamageUI despawnUI)
+{
+    despawnUI.gameObject.SetActive(false);
+    DamagePool.Add(despawnUI);
+}
+```
+플레이어의 공격이 여러 몬스터에게 맞을 수 있고 몬스터가 피격되면 데미지 수치가 UI에 출력됩니다.</br>
+UI를 담당하는 오브젝트에 캔버스를 붙여 캔버스에 맞은 몬스터 수만큼 Text창이 나타나도록 했습니다.</br>
+풀링을 이용해 데미지를 출력하는 Text들을 관리했습니다.</br></br>
+
