@@ -144,3 +144,76 @@ public void ReturnEnemy(GameObject enemy)
 }
 ```
 생성된 몬스터들은 자신과 플레이어의 거리를 체크하고 일정 거리만큼 멀어졌다면 비활성화하게 됩니다.
+
+### FireBall 스킬 구현
+
+![fireball](https://github.com/user-attachments/assets/6a43cf1e-af77-4e45-879f-6b5618fa51a2)
+</br>
+Fireball 스킬은 플레이어의 주변을 돌아다니는 화염구입니다.</br>
+플레이어에게 Weapons 객체를 부착하고 회전하는 용도로 사용할 RoundWeapon객체를 Weapon의 자식 객체로 만들었습니다.
+
+```
+void Update()
+{
+    holder.rotation = Quaternion.Euler(0f, 0f, holder.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime));
+    
+    spawnCounter -= Time.deltaTime;
+    if (spawnCounter <= 0)
+    {
+        spawnCounter = timeBetweenSpawn;
+
+        Instantiate(fireballToSpawn, fireballToSpawn.position, fireballToSpawn.rotation, holder).gameObject.SetActive(true);
+    }
+}
+```
+RoundWeapon은 화염구를 담을 Holder 객체를 가지고 있으며 이 Holder 객체를 매 프레임마다 회전시킵니다.</br>
+또한 일정 시간이 지나면 화염구를 소환시키도록 했습니다. </br>
+
+```
+void Update()
+{
+    transform.localScale = Vector3.MoveTowards(transform.localScale, targetSize, growSpeed * Time.deltaTime);
+    
+    lifeTime -= Time.deltaTime;
+    if(lifeTime <= 0)
+    {
+        targetSize = Vector3.zero;
+
+        if(transform.localScale.x == 0f)
+        {
+            Destroy(gameObject);
+        }
+    }
+}
+
+private void OnTriggerEnter2D(Collider2D collision)
+{
+    if(collision.tag == "Enemy")
+    {
+        collision.GetComponent<EnemyController>().TakeDamage(Damage, shouldKnockBack);
+    }
+}
+```
+화염구에게 시각적 효과를 주기 위해 스폰시 점점 커졌다가 일정 크기만큼 커지면 다시 작아지고 파괴됩니다.</br>
+화염구가 부딪힌 대상이 EnemyController를 가진 객체라면 TakeDamage를 호출해 몬스터에게 피해를 입힙니다.</br>
+
+```
+void Update()
+{
+    if(knockBackCounter > 0)
+    {
+        knockBackCounter -= Time.deltaTime;
+
+        if(moveSpeed > 0)
+        {
+            moveSpeed = -moveSpeed * 2f;
+        }
+
+        if(knockBackCounter <= 0)
+        {
+            moveSpeed = Mathf.Abs(moveSpeed * .5f);
+        }
+    }
+}
+```    
+또한 몬스터가 넉백류 스킬에 맞으면 넉백시간동안 반대 방향으로 밀려나도록 했으며, 넉백동안에는 반대 반향으로 밀려나도 sprite가 좌우반전이 안일어나도록 했습니다.</br>
