@@ -1,89 +1,59 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyToSpawn;
-    public float timeToSpawn;
+    // public GameObject enemyToSpawn;
+    // public float timeToSpawn;
     private float spawnCounter;
 
     [SerializeField]
     private Transform minSpawn, maxSpawn;
-
-    [SerializeField]
-    private EnemyPool enemyPool;
-
     private Transform target;
-    private float despawnDistance;
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
-    public int checkPerFrame; // 이번 프레임에서 체크할 몬스터 수
-    private int enemyIndex; // 리스트 인덱스용
+    // private List<GameObject> spawnedEnemies = new List<GameObject>();
+
+    public List<WaveInfo> waves;
+    private int currentWave;
+    private float waveCounter;
 
     void Start()
     {
         minSpawn = transform.Find("MinSpawnPoint");
         maxSpawn = transform.Find("MaxSpawnPoint");
-        spawnCounter = timeToSpawn;
-
         target = PlayerHealthController.instance.transform;
-        despawnDistance = Vector3.Distance(transform.position, maxSpawn.position) + 4f;
 
-        InvokeRepeating(nameof(SpawnEnemy), 0f, spawnCounter);
+        spawnCounter = waves[0].spawnInterval;
+        waveCounter = waves[0].waveDuration;
     }
 
-    void SpawnEnemy()
-    {
-        GameObject enemy = enemyPool.GetEnemy(SelectSpawnPoint());
-    }
 
     private void Update()
     {
-        transform.position = target.position;
-    }
-
-    void TempUpdate()
-    {
-        spawnCounter -= Time.deltaTime;
-        if (spawnCounter <= 0)
+        if (PlayerHealthController.instance.gameObject.activeSelf)
         {
-            spawnCounter = timeToSpawn;
-            GameObject Enemy = Instantiate(enemyToSpawn, SelectSpawnPoint(), transform.rotation);
-            spawnedEnemies.Add(Enemy);
-        }
-        transform.position = target.position;
-
-        // enemyIndex는 0부터 시작 checkPerFrame은 이 프레임에서 체크할 몬스터 수
-        // int checkTarget = enemyIndex + checkPerFrame;
-        int checkTarget = checkPerFrame;
-        while (enemyIndex < checkTarget)
-        {
-            if (enemyIndex >= spawnedEnemies.Count)
+            if (currentWave < waves.Count)
             {
-                enemyIndex = 0;
-                checkTarget = 0;
-            }
+                waveCounter -= Time.deltaTime;
+                if (waveCounter <= 0)
+                {
+                    GoToNextWave();
+                }
 
-            if (spawnedEnemies[enemyIndex] == null)
-                break;
-
-
-            if (Vector3.Distance(transform.position, spawnedEnemies[enemyIndex].transform.position) > despawnDistance)
-            {
-                // 이번 몬스터는 거리 밖에 있다 파괴
-                Destroy(spawnedEnemies[enemyIndex]);
-                spawnedEnemies.RemoveAt(enemyIndex);
-
-                // 체크 했으니 체크할 몬스터 - 1
-                checkTarget--;
-            }
-            else
-            {
-                // 이번 몬스터는 거리 내에 있다 다음 몬스터
-                enemyIndex++;
+                spawnCounter -= Time.deltaTime;
+                if (spawnCounter <= 0)
+                {
+                    spawnCounter = waves[currentWave].spawnInterval;
+                    GameObject newEnemy = Instantiate(waves[currentWave].enemy, SelectSpawnPoint(), Quaternion.identity);
+                    // spawnedEnemies.Add(newEnemy);
+                }
             }
         }
+
+        transform.position = target.position;
     }
 
     public Vector3 SelectSpawnPoint()
@@ -112,4 +82,27 @@ public class EnemySpawner : MonoBehaviour
 
         return spawnPoint;
     }
+
+    public void GoToNextWave()
+    {
+        waves[currentWave].spawnInterval -= .2f;
+        waves[currentWave].spawnInterval = Mathf.Max(waves[currentWave].spawnInterval, .25f);
+        currentWave++;
+        // 마지막 웨이브일 시
+        if(currentWave >= waves.Count)
+        {
+            currentWave = 0;
+        }
+
+        waveCounter = waves[currentWave].waveDuration;
+        spawnCounter = waves[currentWave].spawnInterval;
+    }
+}
+
+[System.Serializable]
+public class WaveInfo
+{
+    public GameObject enemy;
+    public float waveDuration = 10f;
+    public float spawnInterval = 1f;
 }

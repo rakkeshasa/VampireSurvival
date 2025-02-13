@@ -1,33 +1,46 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyPool;
 
 public class EnemyPool : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public int initialPoolSize = 50;
+    [System.Serializable]
+    public class EnemyPrefab
+    {
+        public EnemyType type;
+        public GameObject prefab;
+    }
 
-    private Queue<GameObject> enemyPool = new Queue<GameObject>();
+    public List<EnemyPrefab> enemyPrefabs;
+    public int initialPoolSize = 5;
+
+    private Dictionary<EnemyType, Queue<GameObject>> enemyPools = new Dictionary<EnemyType, Queue<GameObject>>();
 
     void Start()
     {
-        for(int i = 0; i < initialPoolSize; i++)
+        foreach (var enemy in enemyPrefabs)
         {
-            GameObject enemy = Instantiate(enemyPrefab);
-            enemy.SetActive(false);
-            enemyPool.Enqueue(enemy);
+            Queue<GameObject> pool = new Queue<GameObject>();
+            for (int i = 0; i < initialPoolSize; i++)
+            {
+                GameObject obj = Instantiate(enemy.prefab);
+                obj.SetActive(false);
+                pool.Enqueue(obj);
+            }
+            enemyPools.Add(enemy.type, pool);
         }
     }
 
-    public GameObject GetEnemy(Vector3 spawnPosition)
+    public GameObject GetEnemy(EnemyType type, Vector3 spawnPosition)
     {
         GameObject enemy;
-        if (enemyPool.Count > 0)
+        if (enemyPools[type].Count > 0)
         {
-            enemy = enemyPool.Dequeue();
+            enemy = enemyPools[type].Dequeue();
         }
         else
         {
-            enemy = Instantiate(enemyPrefab); // 풀에 남은 게 없으면 새로 생성
+            enemy = Instantiate(enemyPrefabs.Find(e => e.type == type).prefab);
         }
 
         enemy.transform.position = spawnPosition;
@@ -35,9 +48,22 @@ public class EnemyPool : MonoBehaviour
         return enemy;
     }
 
-    public void ReturnEnemy(GameObject enemy)
+    public void ReturnEnemy(EnemyType type, GameObject enemy)
     {
         enemy.SetActive(false);
-        enemyPool.Enqueue(enemy);
+        if (enemyPools.ContainsKey(type))
+        {
+            enemyPools[type].Enqueue(enemy);
+        }
     }
+}
+
+public enum EnemyType
+{
+    Bee,
+    Slime,
+    Wolf,
+    Skeleton,
+    Phantom,
+    Dragon
 }

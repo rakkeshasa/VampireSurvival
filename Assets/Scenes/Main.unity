@@ -183,8 +183,25 @@ MonoBehaviour:
   timeToSpawn: 2
   minSpawn: {fileID: 0}
   maxSpawn: {fileID: 0}
-  enemyPool: {fileID: 1353566162}
-  checkPerFrame: 10
+  waves:
+  - enemy: {fileID: 8171922593993772245, guid: 94e7a318d0b798c4eaf3cd07aa0891cd, type: 3}
+    waveDuration: 10
+    spawnInterval: 1
+  - enemy: {fileID: 2599265350125708968, guid: 9302596908ea6c94f840ad53b7ffe299, type: 3}
+    waveDuration: 10
+    spawnInterval: 1
+  - enemy: {fileID: 842951025323348688, guid: b73a5d8cd5bf49842953d26b18bc492d, type: 3}
+    waveDuration: 10
+    spawnInterval: 1
+  - enemy: {fileID: 4788346062484136482, guid: 3481b4e55c58f2242a7dbaf78d62b069, type: 3}
+    waveDuration: 10
+    spawnInterval: 1
+  - enemy: {fileID: 6284851390436058489, guid: 1dc4d03341ee13c40bd2f13e687241a1, type: 3}
+    waveDuration: 10
+    spawnInterval: 1
+  - enemy: {fileID: 4187135468772339665, guid: 94c4e7ba24d992a4c8ee66076d92a3b9, type: 3}
+    waveDuration: 10
+    spawnInterval: 1
 --- !u!4 &291563716
 Transform:
   m_ObjectHideFlags: 0
@@ -890,6 +907,7 @@ MonoBehaviour:
   lifeTime: 3
   growSpeed: 1
   shouldKnockBack: 1
+  destroyParent: 1
 --- !u!1 &1217153641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1116,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1353566163}
-  - component: {fileID: 1353566162}
   m_Layer: 0
   m_Name: EnemyPool
   m_TagString: Untagged
@@ -1106,20 +1123,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1353566162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1353566161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca50d580cb54b7946a74af94fa5992e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 8171922593993772245, guid: 94e7a318d0b798c4eaf3cd07aa0891cd, type: 3}
-  initialPoolSize: 50
 --- !u!4 &1353566163
 Transform:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private Transform target;
+    public EnemyType enemyType;
 
     public float moveSpeed;
     public float health = 5f;
@@ -12,7 +13,8 @@ public class EnemyController : MonoBehaviour
     // Damage
     [SerializeField]
     private float damage;
-    private float delayTime = 1f;
+    [SerializeField]
+    private float delayAttack = 1f;
     private float hitCounter;
     [SerializeField]
     private float knockBackTime = .5f;
@@ -26,7 +28,6 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        // target = FindAnyObjectByType<PlayerController>().transform;
         target = PlayerHealthController.instance.transform;
         rb = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
@@ -64,7 +65,8 @@ public class EnemyController : MonoBehaviour
 
         if (Vector3.Distance(target.position, transform.position) > despawnDistance)
         {
-            enemyPool.ReturnEnemy(gameObject); // 몬스터 반환
+            // enemyPool.ReturnEnemy(enemyType, gameObject); // 몬스터 반환
+            Destroy(gameObject);
         }
     }
 
@@ -73,7 +75,7 @@ public class EnemyController : MonoBehaviour
         if(collision.gameObject.tag == "Player" && hitCounter <= 0f)
         {
             PlayerHealthController.instance.TakeDamage(damage);
-            hitCounter = delayTime;
+            hitCounter = delayAttack;
         }
     }
 
@@ -83,7 +85,8 @@ public class EnemyController : MonoBehaviour
 
         if(health <= 0)
         {
-            enemyPool.ReturnEnemy(gameObject);
+            // enemyPool.ReturnEnemy(enemyType, gameObject);
+            Destroy(gameObject);
         }
 
         DamageUIController.instance.SetDamageUI(damage, transform.position);
