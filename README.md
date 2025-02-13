@@ -257,3 +257,89 @@ public void DespawnDamageUI(DamageUI despawnUI)
 UI를 담당하는 오브젝트에 캔버스를 붙여 캔버스에 맞은 몬스터 수만큼 Text창이 나타나도록 했습니다.</br>
 풀링을 이용해 데미지를 출력하는 Text들을 관리했습니다.</br></br>
 
+### 몬스터 웨이브 시스템
+
+```
+private void Update()
+{
+    if (PlayerHealthController.instance.gameObject.activeSelf)
+    {
+        if (currentWave < waves.Count)
+        {
+            waveCounter -= Time.deltaTime;
+            if (waveCounter <= 0)
+            {
+                GoToNextWave();
+            }
+
+            spawnCounter -= Time.deltaTime;
+            if (spawnCounter <= 0)
+            {
+                spawnCounter = waves[currentWave].spawnInterval;
+                GameObject newEnemy = Instantiate(waves[currentWave].enemy, SelectSpawnPoint(), Quaternion.identity);
+            }
+        }
+    }
+
+    transform.position = target.position;
+}
+
+public void GoToNextWave()
+{
+    waves[currentWave].spawnInterval -= .2f;
+    waves[currentWave].spawnInterval = Mathf.Max(waves[currentWave].spawnInterval, .25f);
+    currentWave++;
+
+    if(currentWave >= waves.Count)
+    {
+        currentWave = 0;
+    }
+
+    waveCounter = waves[currentWave].waveDuration;
+    spawnCounter = waves[currentWave].spawnInterval;
+}
+```
+몬스터와 웨이브 시간, 몬스터 스폰 시간을 담는 waveInfo 클래스를 생성하여 웨이브를 관리하는 리스트를 생성했습니다.</br>
+1개의 웨이브에서 1개의 몬스터만 나오도록 했으며 웨이브 시간이 지나면 다음 웨이브로 넘어가면서 다음 리스트에 있는 몬스터를 스폰합니다.</br>
+이를 위해 Update 함수에서 웨이브 시간을 체크하고 웨이브 시간동안 현재 단계의 몬스터를 스폰하도록 했으며 웨이브 시간이 다 됐으면 다음 웨이브로 넘어가게 했습니다.</BR>
+다음 웨이브로 넘어가게 해주는 GoToNextWave는 리스트의 인덱스를 증가시키고 다음 웨이브의 시간과 몬스터 스폰 시간을 세팅해줍니다.</br>
+만약 리스트를 다 순회했다면 인덱스를 0으로 설정해 다시 처음부터 순회하도록 했으며, 반복됐을 때 더 박진감 넘치는 플레이를 위해 몬스터 스폰 시간을 줄여 더 많은 몬스터가 나오도록 했습니다.</br></br>
+
+### 레벨 시스템
+
+```
+void Update()
+{
+    if(magnetic)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, PlayerHealthController.instance.transform.position, speed * Time.deltaTime);
+    }
+    else
+    {
+        checkCounter -= Time.deltaTime;
+        if(checkCounter < 0)
+        {
+            checkCounter = timeBetweenChecks;
+
+            if (Vector3.Distance(transform.position, PlayerHealthController.instance.transform.position) < player.pickupRange)
+            {
+                magnetic = true;
+                speed += player.moveSpeed;
+            }
+        }
+    }
+}
+
+public void GetExp(int exp)
+{
+    currentEXP += exp;
+    if(currentEXP >= expLevels[currentLevel])
+    {
+        LevelUp();
+    }
+    UIController.instance.UpdateExp(currentEXP, expLevels[currentLevel], currentLevel);
+}
+```
+몬스터가 죽으면 경험치 코인을 떨어뜨리고, 플레이어가 코인을 획득할 수 있는 반경내에 접근하면 플레이어에게 흡수됩니다.</br>
+플레이어에게 흡수되면 트리거 이벤트가 발생하고 GetExp 함수를 호출해 플레이어의 Exp 값을 증가시키고 UI에 적용합니다.</BR>
+만약 획득한 경험치를 통해 레벨업할 조건이 된다면 플레이어의 레벨을 올리고, 레벨업하고 남은 경험치를 보존합니다.</BR></BR>
