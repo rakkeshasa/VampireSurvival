@@ -200,8 +200,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1.4
   health: 15
+  exp: 1
   damage: 15
-  delayAttack: 1
+  delayAttack: 5
   knockBackTime: 0.5
 --- !u!114 &1439845677655170197
 MonoBehaviour:

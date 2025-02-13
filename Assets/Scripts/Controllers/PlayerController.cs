@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sprite;
 
     public Animator anim;
+    public float pickupRange = 1.5f;
     void Start()
     {
         sprite = GetComponentInChildren<SpriteRenderer>();

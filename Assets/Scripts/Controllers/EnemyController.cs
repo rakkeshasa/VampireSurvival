@@ -5,10 +5,10 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private Transform target;
-    public EnemyType enemyType;
 
     public float moveSpeed;
     public float health = 5f;
+    public int exp = 1;
 
     // Damage
     [SerializeField]
@@ -20,8 +20,6 @@ public class EnemyController : MonoBehaviour
     private float knockBackTime = .5f;
     private float knockBackCounter;
 
-    // EnemyPooling
-    private EnemyPool enemyPool;
     private float despawnDistance = 20f;
 
 
@@ -31,7 +29,6 @@ public class EnemyController : MonoBehaviour
         target = PlayerHealthController.instance.transform;
         rb = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
-        enemyPool = FindAnyObjectByType<EnemyPool>();
     }
 
     void Update()
@@ -85,8 +82,8 @@ public class EnemyController : MonoBehaviour
 
         if(health <= 0)
         {
-            // enemyPool.ReturnEnemy(enemyType, gameObject);
             Destroy(gameObject);
+            PlayerLevelController.instance.SpawnExp(transform.position, exp);
         }
 
         DamageUIController.instance.SetDamageUI(damage, transform.position);
