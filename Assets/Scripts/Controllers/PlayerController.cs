@@ -2,11 +2,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     public float moveSpeed;
     private SpriteRenderer sprite;
 
     public Animator anim;
     public float pickupRange = 1.5f;
+    public Weapon activeWeapon;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         sprite = GetComponentInChildren<SpriteRenderer>();

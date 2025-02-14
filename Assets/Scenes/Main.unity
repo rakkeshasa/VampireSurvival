@@ -1012,9 +1012,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e31051dac234b649941020343652a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 5
+  Damage: 1
   lifeTime: 3
-  growSpeed: 1
+  growSpeed: 5
   shouldKnockBack: 1
   destroyParent: 1
 --- !u!1 &1217153641
@@ -6525,9 +6525,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e60f1c5874eb7164387620a796d55013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 180
+  stats:
+  - speed: 1
+    damage: 5
+    range: 1
+    attackInterval: 8
+    amount: 1
+    duration: 7
+  - speed: 2
+    damage: 10
+    range: 2
+    attackInterval: 8
+    amount: 1
+    duration: 7
+  - speed: 3
+    damage: 15
+    range: 3
+    attackInterval: 8
+    amount: 1
+    duration: 7
+  - speed: 4
+    damage: 20
+    range: 4
+    attackInterval: 8
+    amount: 1
+    duration: 7
+  - speed: 5
+    damage: 25
+    range: 5
+    attackInterval: 8
+    amount: 1
+    duration: 7
+  - speed: 6
+    damage: 30
+    range: 6
+    attackInterval: 8
+    amount: 1
+    duration: 7
+  - speed: 7
+    damage: 35
+    range: 7
+    attackInterval: 8
+    amount: 1
+    duration: 7
+  weaponLevel: 0
+  statsUpdated: 0
+  rotateSpeed: 120
   fireballToSpawn: {fileID: 890545787}
-  timeBetweenSpawn: 4
+  spawnInterval: 4
+  damager: {fileID: 1202031218}
 --- !u!1 &1903147170
 GameObject:
   m_ObjectHideFlags: 0
@@ -6639,6 +6685,7 @@ MonoBehaviour:
   moveSpeed: 2
   anim: {fileID: 2013950781}
   pickupRange: 1
+  activeWeapon: {fileID: 1845276884}
 --- !u!4 &2013950780
 Transform:
   m_ObjectHideFlags: 0
