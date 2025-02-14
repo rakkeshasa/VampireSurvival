@@ -9,6 +9,10 @@ public class UIController : MonoBehaviour
     public Slider expSlider;
     public TMP_Text levelText;
 
+    public LevelUpButton[] levelUpButtons;
+
+    public GameObject levelUpPanel;
+
     private void Awake()
     {
         instance = this;

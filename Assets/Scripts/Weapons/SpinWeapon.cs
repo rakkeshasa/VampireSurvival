@@ -14,8 +14,8 @@ public class SpinWeapon : Weapon
     void Start()
     {
         holder = transform.Find("Holder");
-        // fireballToSpawn = transform.Find("FireballHolder");
         SetStats();
+        // UIController.instance.levelUpButtons[0].UpdateButton(this);
     }
 
     void Update()
