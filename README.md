@@ -343,3 +343,37 @@ public void GetExp(int exp)
 몬스터가 죽으면 경험치 코인을 떨어뜨리고, 플레이어가 코인을 획득할 수 있는 반경내에 접근하면 플레이어에게 흡수됩니다.</br>
 플레이어에게 흡수되면 트리거 이벤트가 발생하고 GetExp 함수를 호출해 플레이어의 Exp 값을 증가시키고 UI에 적용합니다.</BR>
 만약 획득한 경험치를 통해 레벨업할 조건이 된다면 플레이어의 레벨을 올리고, 레벨업하고 남은 경험치를 보존합니다.</BR></BR>
+
+### 무기 업그레이드
+
+```
+private void LevelUp()
+{
+    currentEXP -= expLevels[currentLevel];
+    currentLevel++;
+
+    UIController.instance.levelUpPanel.SetActive(true);
+    Time.timeScale = 0f;
+    UIController.instance.levelUpButtons[1].UpdateButton(PlayerController.instance.activeWeapon);
+}
+
+public void LevelUp()
+{
+    if(weaponLevel < stats.Count - 1)
+    {
+        weaponLevel++;
+        statsUpdated = true;
+    }
+}
+
+if(statsUpdated)
+{
+    damager.Damage = stats[weaponLevel].damage;
+    transform.localScale = Vector3.one * stats[weaponLevel].range;
+    spawnInterval = stats[weaponLevel].attackInterval;
+    damager.lifeTime = stats[weaponLevel].duration;
+    spawnCounter = 0;
+}
+```
+플레이어가 레벨업을 하게 되면 무기 업그레이드 창이 뜨며 3개의 선택창에서 업그레이드할 무기를 고르게 됩니다.</br>
+업그레이드할 무기를 고르면 해당 무기의 레벨을 올리는 함수를 호출하고 해당 레벨에 맞는 스탯을 갖게 했습니다.</br></br>
