@@ -257,6 +257,89 @@ public void DespawnDamageUI(DamageUI despawnUI)
 UI를 담당하는 오브젝트에 캔버스를 붙여 캔버스에 맞은 몬스터 수만큼 Text창이 나타나도록 했습니다.</br>
 풀링을 이용해 데미지를 출력하는 Text들을 관리했습니다.</br></br>
 
+### HolyZone 무기 구현
+HolyZone는 몬스터가 플레이어한테 일정 거리이내에 들어오면 지속적인 피해를 입는 무기입니다.</br>
+HolyZone무기에 원형 콜라이더를 붙여 OnTriggerEnter 함수를 통해 가까이 있는 모든 몬스터들을 리스트에 담았습니다.</br>
+
+```
+if(infiniteDamager)
+{
+    damageCounter -= Time.deltaTime;
+
+    if(damageCounter <= 0)
+    {
+        damageCounter = damageInterval;
+        for(int i = 0; i < enemiesInRange.Count; i++)
+        {
+            if (enemiesInRange[i] != null)
+            {
+                enemiesInRange[i].TakeDamage(Damage, shouldKnockBack);
+            }
+            else
+            {
+                enemiesInRange.RemoveAt(i);
+                i--;
+            }
+        }
+    }
+}
+```
+지속 피해를 구현하기 위해 카운터를 통해 몇 틱마다 데미지를 입힐지 계산했으며, 리스트에 담긴 몬스터들을 순회하면서 데미지를 입혔습니다.</br>
+몬스터가 무기 구역을 벗어나면 리스트에서 제거해 더 이상 피해를 입지 않게 했습니다.</br></br>
+
+### Dagger 무기 구현
+Dagger 무기는 빠르게 일직선 상으로 단검을 던지는 스킬입니다.</br>
+
+```
+public LayerMask hitEnemy;
+
+Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, weaponRange * stats[weaponLevel].range, hitEnemy);
+if(enemies.Length > 0 )
+{
+    for(int i = 0; i < stats[weaponLevel].amount; i++)
+    {
+        // 투사체에 맞은 개체 중 랜덤하게 뽑아 데미지 주기
+        Vector3 targetPos = enemies[Random.Range(0, enemies.Length)].transform.position;
+        
+        Vector3 dir = targetPos - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        Instantiate(projectile, projectile.transform.position, projectile.transform.rotation).gameObject.SetActive(true);
+    }
+}
+```
+Dagger가 몬스터를 향해 방향을 맞추기 위해 몬스터의 위치를 파악해야합니다.</br>
+몬스터의 위치는 몬스터에게 Enemy 레이어를 적용해서 무기 레벨의 범위 안에 있는 몬스터를 탐색하고 배열에 넣습니다.</br>
+배열에 있는 몬스터 중 랜덤하게 1개를 뽑아 해당 몬스터 방향으로 Dagger를 소환하고 나아가게 합니다.</br></br>
+
+### Sword 무기 구현
+Sword 무기는 플레이어로부터 정해진 방향으로 찔러 방향에는 제한이 있지만 데미지는 강력한 무기입니다.</br>
+
+```
+for(int i = 0; i < stats[weaponLevel].amount; i++)
+{
+    float rot = (360f / stats[weaponLevel].amount) * i;
+    Instantiate(damager, damager.transform.position, Quaternion.Euler(0f, 0f, damager.transform.rotation.eulerAngles.z + rot), transform).gameObject.SetActive(true);
+}
+```
+무기가 업그레이드 하면서 찌르는 무기가 1개씩 증가하며 일정한 각도로 검을 찌르게 하기 위해 360도를 무기의 개수만큼 나눠 각도를 구했습니다.</br>
+이후 해당 각도에 맞춰 무기를 일정 거리만큼 나가게 해 찌르는 것처럼 보이게 했습니다.</br.
+
+### Axe 무기 구현
+Axe 무기는 현실에서 도끼를 던지는 것처럼 포물선을 그리며 아래로 떨어지는 무기입니다.</br>
+
+```
+public float throwPower;
+public Rigidbody2D rb;
+
+rb.linearVelocity = new Vector2(Random.Range(-throwPower, throwPower), throwPower);
+transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotateSpeed * 360f * Time.deltaTime * Mathf.Sign(rb.linearVelocityX)));
+```
+무기가 포물선을 그리면서 떨어지게 하기 위해 RigidBody를 붙여 중력 효과를 입혔으며 던지는 힘을 따로 받아 RigidBody에 나아가는 힘을 적용했습니다.</br>
+또한 무기가 굴러가는거처럼 회전시키기 위해 rotation을 싸인 함수를 이용해 회전시켰습니다.</br></br>
+
+
 ### 몬스터 웨이브 시스템
 
 ```
