@@ -36,4 +36,10 @@ public class UIController : MonoBehaviour
         // "Level: " + currentLevel;
         levelText.text = $"Level: {currentLevel}";
     }
+
+    public void SkipButton()
+    {
+        levelUpPanel.SetActive(false);
+        Time.timeScale = 1.0f;
+    }
 }

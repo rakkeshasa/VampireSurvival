@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,7 +10,12 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
     public float pickupRange = 1.5f;
-    public Weapon activeWeapon;
+
+    public List<Weapon> activeWeapons, inactiveWeapons;
+    public int maxWeapon = 3;
+
+    [HideInInspector]
+    public List<Weapon> maxLevelWepons = new List<Weapon>();
 
     private void Awake()
     {
@@ -18,6 +25,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
+
+        AddWeapon(Random.Range(0, inactiveWeapons.Count));
     }
 
     void Update()
@@ -45,5 +54,22 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("IsMoving", false);
         }
+    }
+
+    public void AddWeapon(int index)
+    {
+        if(index < inactiveWeapons.Count)
+        {
+            activeWeapons.Add(inactiveWeapons[index]);
+            inactiveWeapons[index].gameObject.SetActive(true);
+            inactiveWeapons.RemoveAt(index);
+        }
+    }
+
+    public void AddWeapon(Weapon newWeapon)
+    {
+        newWeapon.gameObject.SetActive(true);
+        activeWeapons.Add(newWeapon);
+        inactiveWeapons.Remove(newWeapon);
     }
 }

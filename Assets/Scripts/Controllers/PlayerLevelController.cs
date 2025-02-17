@@ -13,6 +13,8 @@ public class PlayerLevelController : MonoBehaviour
     private int currentLevel = 1;
     private int maxLevel = 100;
 
+    public List<Weapon> upgradeWeapons;
+
     private void Awake()
     {
         instance = this;
@@ -58,12 +60,52 @@ public class PlayerLevelController : MonoBehaviour
             currentLevel = expLevels.Count - 1;
         }
 
-        // PlayerController.instance.activeWeapon.LevelUp();
         UIController.instance.levelUpPanel.SetActive(true);
 
         // 레벨업시 시간정지
         Time.timeScale = 0f;
-        UIController.instance.levelUpButtons[1].UpdateButton(PlayerController.instance.activeWeapon);
-    }
 
+        upgradeWeapons.Clear();
+        List<Weapon> availableWeapons = new List<Weapon>();
+        availableWeapons.AddRange(PlayerController.instance.activeWeapons);
+
+        if(availableWeapons.Count > 0)
+        {
+            int selected = Random.Range(0, availableWeapons.Count);
+            upgradeWeapons.Add(availableWeapons[selected]);
+            availableWeapons.RemoveAt(selected);
+        }
+
+        if(PlayerController.instance.activeWeapons.Count + PlayerController.instance.maxLevelWepons.Count < PlayerController.instance.maxWeapon)
+        {
+            availableWeapons.AddRange(PlayerController.instance.inactiveWeapons);
+        }
+        
+        for(int i = upgradeWeapons.Count; i < 3; i++)
+        {
+            if (availableWeapons.Count > 0)
+            {
+                int selected = Random.Range(0, availableWeapons.Count);
+                upgradeWeapons.Add(availableWeapons[selected]);
+                availableWeapons.RemoveAt(selected);
+            }
+        }
+
+        for(int i = 0; i < upgradeWeapons.Count; i++)
+        {
+            UIController.instance.levelUpButtons[i].UpdateButton(upgradeWeapons[i]);
+        }
+
+        for(int i = 0; i < UIController.instance.levelUpButtons.Length; i++)
+        {
+            if(i < upgradeWeapons.Count)
+            {
+                UIController.instance.levelUpButtons[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                UIController.instance.levelUpButtons[i].gameObject.SetActive(false);
+            }
+        }
+    }
 }
