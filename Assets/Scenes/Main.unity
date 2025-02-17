@@ -596,33 +596,33 @@ MonoBehaviour:
     attackInterval: 8
     amount: 1
     duration: 7
-    upgradeText: Power Up
-  - speed: 2
+    upgradeText: Damage +2
+  - speed: 1
+    damage: 7
+    range: 1.1
+    attackInterval: 7.75
+    amount: 2
+    duration: 7
+    upgradeText: Speed Up
+  - speed: 1.1
+    damage: 7
+    range: 1.2
+    attackInterval: 7.5
+    amount: 3
+    duration: 7
+    upgradeText: Damage +3
+  - speed: 1.1
     damage: 10
-    range: 2
-    attackInterval: 8
-    amount: 1
+    range: 1.3
+    attackInterval: 7.25
+    amount: 4
     duration: 7
-    upgradeText: Power Up
-  - speed: 3
-    damage: 15
-    range: 3
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 4
-    damage: 20
-    range: 4
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 5
-    damage: 25
-    range: 5
-    attackInterval: 8
-    amount: 1
+    upgradeText: Speed Up
+  - speed: 1.2
+    damage: 10
+    range: 1.4
+    attackInterval: 7
+    amount: 5
     duration: 7
     upgradeText: Max Upgrade
   weaponLevel: 0
@@ -748,6 +748,9 @@ MonoBehaviour:
   growSpeed: 5
   shouldKnockBack: 1
   destroyParent: 1
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 0
 --- !u!58 &231411480
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -870,6 +873,106 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1640658633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &254608155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 254608156}
+  - component: {fileID: 254608157}
+  - component: {fileID: 254608158}
+  m_Layer: 0
+  m_Name: Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &254608156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254608155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 887592578}
+  m_Father: {fileID: 722794974}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &254608157
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254608155}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 1.512531, y: 0.0041326284}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.3140769, y: 0.3139887}
+  m_EdgeRadius: 0
+--- !u!114 &254608158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254608155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e31051dac234b649941020343652a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  lifeTime: 1.5
+  growSpeed: 10
+  shouldKnockBack: 1
+  destroyParent: 0
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 0
 --- !u!1 &273303980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,6 +1149,10 @@ Transform:
   - {fileID: 145221481}
   - {fileID: 2052401113}
   - {fileID: 1640658633}
+  - {fileID: 1260667640}
+  - {fileID: 2117829163}
+  - {fileID: 722794974}
+  - {fileID: 1783176222}
   m_Father: {fileID: 2013950780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339039530
@@ -1332,6 +1439,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379623265}
   m_CullTransparentMesh: 1
+--- !u!1 &471434388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471434389}
+  - component: {fileID: 471434391}
+  - component: {fileID: 471434390}
+  - component: {fileID: 471434393}
+  - component: {fileID: 471434392}
+  m_Layer: 0
+  m_Name: Axe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &471434389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471434388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 547155519}
+  m_Father: {fileID: 1783176222}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471434390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471434388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e31051dac234b649941020343652a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 5
+  lifeTime: 2
+  growSpeed: 10
+  shouldKnockBack: 1
+  destroyParent: 0
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 0
+--- !u!58 &471434391
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471434388}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.45
+--- !u!114 &471434392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471434388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d957c81ba7789c049b3a4916109509d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwPower: 5
+  rb: {fileID: 471434393}
+  rotateSpeed: 1
+--- !u!50 &471434393
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471434388}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &502208125
 GameObject:
   m_ObjectHideFlags: 0
@@ -6303,6 +6544,93 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &547155518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547155519}
+  - component: {fileID: 547155520}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &547155519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547155518}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 471434389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &547155520
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547155518}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -1061488230, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &550117755
 GameObject:
   m_ObjectHideFlags: 0
@@ -6709,6 +7037,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc47f2783ae6694f9efd92caa67707f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &722794973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722794974}
+  - component: {fileID: 722794975}
+  m_Layer: 0
+  m_Name: MeleeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &722794974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722794973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 254608156}
+  m_Father: {fileID: 320603269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722794975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722794973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4de211115e67bd40925d85528922e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - speed: 0
+    damage: 10
+    range: 1
+    attackInterval: 2
+    amount: 1
+    duration: 0.5
+    upgradeText: Damage +5
+  - speed: 0
+    damage: 15
+    range: 1
+    attackInterval: 2
+    amount: 2
+    duration: 0.5
+    upgradeText: Size Up
+  - speed: 0
+    damage: 15
+    range: 1.5
+    attackInterval: 1.5
+    amount: 3
+    duration: 0.5
+    upgradeText: Increase Time
+  - speed: 0
+    damage: 15
+    range: 1.5
+    attackInterval: 1.5
+    amount: 4
+    duration: 0.75
+    upgradeText: Attack Speed Up
+  - speed: 0
+    damage: 15
+    range: 1.5
+    attackInterval: 1.5
+    amount: 5
+    duration: 0.75
+    upgradeText: Size Up
+  weaponLevel: 0
+  statsUpdated: 0
+  icon: {fileID: 906671935, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
+  damager: {fileID: 254608158}
 --- !u!1 &793769587
 GameObject:
   m_ObjectHideFlags: 0
@@ -6881,6 +7294,9 @@ MonoBehaviour:
   growSpeed: 5
   shouldKnockBack: 1
   destroyParent: 1
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 0
 --- !u!58 &832175380
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7019,6 +7435,93 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1845276883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &887592577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 887592578}
+  - component: {fileID: 887592579}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &887592578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887592577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 254608156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+--- !u!212 &887592579
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887592577}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 906671935, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &890545786
 GameObject:
   m_ObjectHideFlags: 0
@@ -7103,6 +7606,9 @@ MonoBehaviour:
   growSpeed: 5
   shouldKnockBack: 1
   destroyParent: 1
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 0
 --- !u!58 &917744122
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7345,6 +7851,93 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920928183}
   m_CullTransparentMesh: 1
+--- !u!1 &1102889137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1102889138}
+  - component: {fileID: 1102889139}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1102889138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102889137}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1511291026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!212 &1102889139
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102889137}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -1283994490, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1121249137
 GameObject:
   m_ObjectHideFlags: 0
@@ -7747,8 +8340,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -188537759
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -196789849, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7778,6 +8371,9 @@ MonoBehaviour:
   growSpeed: 5
   shouldKnockBack: 1
   destroyParent: 1
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 0
 --- !u!1 &1217153641
 GameObject:
   m_ObjectHideFlags: 0
@@ -12689,6 +13285,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1617147726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1260667639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1260667640}
+  - component: {fileID: 1260667641}
+  m_Layer: 0
+  m_Name: HolyLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1260667640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260667639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2142537036}
+  m_Father: {fileID: 320603269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1260667641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260667639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8ccc44129895147ab5d76e9fbaab81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - speed: 0.5
+    damage: 2
+    range: 1
+    attackInterval: 8
+    amount: 0
+    duration: 7
+    upgradeText: Damage +1
+  - speed: 0.5
+    damage: 3
+    range: 1
+    attackInterval: 8
+    amount: 0
+    duration: 7
+    upgradeText: Range Up
+  - speed: 0.5
+    damage: 3
+    range: 1.1
+    attackInterval: 8
+    amount: 0
+    duration: 7
+    upgradeText: Attack Speed Up
+  - speed: 0.4
+    damage: 3
+    range: 1.1
+    attackInterval: 8
+    amount: 0
+    duration: 7
+    upgradeText: Damage +1
+  - speed: 0.4
+    damage: 3
+    range: 1.1
+    attackInterval: 8
+    amount: 0
+    duration: 7
+    upgradeText: Attack Speed Up
+  weaponLevel: 0
+  statsUpdated: 0
+  icon: {fileID: 21300000, guid: 0c78c8dd7f0745146b5b5c4fad8288e4, type: 3}
+  damager: {fileID: 2142537037}
 --- !u!1 &1290989033
 GameObject:
   m_ObjectHideFlags: 0
@@ -13293,7 +13974,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1839117617
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -1714587360, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -13412,6 +14093,120 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485583850}
   m_CullTransparentMesh: 1
+--- !u!1 &1511291023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1511291026}
+  - component: {fileID: 1511291025}
+  - component: {fileID: 1511291024}
+  - component: {fileID: 1511291027}
+  m_Layer: 0
+  m_Name: Projectile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1511291024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511291023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e31051dac234b649941020343652a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 5
+  lifeTime: 3
+  growSpeed: 5
+  shouldKnockBack: 0
+  destroyParent: 0
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 1
+--- !u!61 &1511291025
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511291023}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.02892816, y: 0.12811053}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.3305192, y: 0.71071815}
+  m_EdgeRadius: 0
+--- !u!4 &1511291026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511291023}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1102889138}
+  m_Father: {fileID: 2117829163}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1511291027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511291023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c24df643d1d144eb1bf6090420ef03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &1519500255
 GameObject:
   m_ObjectHideFlags: 0
@@ -13646,6 +14441,9 @@ MonoBehaviour:
   growSpeed: 5
   shouldKnockBack: 1
   destroyParent: 1
+  infiniteDamager: 0
+  damageInterval: 0
+  destroyOnImpact: 0
 --- !u!58 &1565225918
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -13822,33 +14620,33 @@ MonoBehaviour:
     attackInterval: 8
     amount: 1
     duration: 7
-    upgradeText: Power Up
-  - speed: 2
+    upgradeText: Damage +2
+  - speed: 1
+    damage: 7
+    range: 1.1
+    attackInterval: 7.75
+    amount: 2
+    duration: 7
+    upgradeText: Speed Up
+  - speed: 1.1
+    damage: 7
+    range: 1.2
+    attackInterval: 7.5
+    amount: 3
+    duration: 7
+    upgradeText: Damage +3
+  - speed: 1.1
     damage: 10
-    range: 2
-    attackInterval: 8
-    amount: 1
+    range: 1.3
+    attackInterval: 7.25
+    amount: 4
     duration: 7
-    upgradeText: Power Up
-  - speed: 3
-    damage: 15
-    range: 3
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 4
-    damage: 20
-    range: 4
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 5
-    damage: 25
-    range: 5
-    attackInterval: 8
-    amount: 1
+    upgradeText: Speed Up
+  - speed: 1.2
+    damage: 10
+    range: 1.4
+    attackInterval: 7
+    amount: 5
     duration: 7
     upgradeText: Max Upgrade
   weaponLevel: 0
@@ -13894,33 +14692,33 @@ MonoBehaviour:
     attackInterval: 8
     amount: 1
     duration: 7
-    upgradeText: Power Up
-  - speed: 2
+    upgradeText: Damage +2
+  - speed: 1
+    damage: 7
+    range: 1.1
+    attackInterval: 7.75
+    amount: 2
+    duration: 7
+    upgradeText: Speed Up
+  - speed: 1.1
+    damage: 7
+    range: 1.2
+    attackInterval: 7.5
+    amount: 3
+    duration: 7
+    upgradeText: Damage +3
+  - speed: 1.1
     damage: 10
-    range: 2
-    attackInterval: 8
-    amount: 1
+    range: 1.3
+    attackInterval: 7.25
+    amount: 4
     duration: 7
-    upgradeText: Power Up
-  - speed: 3
-    damage: 15
-    range: 3
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 4
-    damage: 20
-    range: 4
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 5
-    damage: 25
-    range: 5
-    attackInterval: 8
-    amount: 1
+    upgradeText: Speed Up
+  - speed: 1.2
+    damage: 10
+    range: 1.4
+    attackInterval: 7
+    amount: 5
     duration: 7
     upgradeText: Max Upgrade
   weaponLevel: 0
@@ -18918,6 +19716,98 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1783176221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1783176222}
+  - component: {fileID: 1783176223}
+  m_Layer: 0
+  m_Name: AxeThrow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1783176222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783176221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 471434389}
+  m_Father: {fileID: 320603269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1783176223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783176221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2367c7017c487e34bb833e0ef8ba9a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - speed: 0
+    damage: 5
+    range: 1
+    attackInterval: 1.5
+    amount: 1
+    duration: 1
+    upgradeText: Damage +5
+  - speed: 0
+    damage: 10
+    range: 1
+    attackInterval: 1.5
+    amount: 2
+    duration: 1
+    upgradeText: Attack Speed Up
+  - speed: 0
+    damage: 10
+    range: 1
+    attackInterval: 1.25
+    amount: 3
+    duration: 1
+    upgradeText: Duration Increase
+  - speed: 0
+    damage: 10
+    range: 1
+    attackInterval: 1.25
+    amount: 4
+    duration: 2
+    upgradeText: Size Up
+  - speed: 0
+    damage: 10
+    range: 1
+    attackInterval: 1.25
+    amount: 5
+    duration: 2
+    upgradeText: Size Up
+  - speed: 0
+    damage: 15
+    range: 2
+    attackInterval: 1
+    amount: 6
+    duration: 2
+    upgradeText: Max Upgrade
+  weaponLevel: 0
+  statsUpdated: 0
+  icon: {fileID: -1061488230, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
+  damager: {fileID: 471434390}
 --- !u!1 &1793086429
 GameObject:
   m_ObjectHideFlags: 0
@@ -19141,33 +20031,33 @@ MonoBehaviour:
     attackInterval: 8
     amount: 1
     duration: 7
-    upgradeText: Power Up
-  - speed: 2
+    upgradeText: Damage +2
+  - speed: 1
+    damage: 7
+    range: 1.1
+    attackInterval: 7.75
+    amount: 2
+    duration: 7
+    upgradeText: Speed Up
+  - speed: 1.1
+    damage: 7
+    range: 1.2
+    attackInterval: 7.5
+    amount: 3
+    duration: 7
+    upgradeText: Damage +3
+  - speed: 1.1
     damage: 10
-    range: 2
-    attackInterval: 8
-    amount: 1
+    range: 1.3
+    attackInterval: 7.25
+    amount: 4
     duration: 7
-    upgradeText: Power Up
-  - speed: 3
-    damage: 15
-    range: 3
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 4
-    damage: 20
-    range: 4
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 5
-    damage: 25
-    range: 5
-    attackInterval: 8
-    amount: 1
+    upgradeText: Speed Up
+  - speed: 1.2
+    damage: 10
+    range: 1.4
+    attackInterval: 7
+    amount: 5
     duration: 7
     upgradeText: Max Upgrade
   weaponLevel: 0
@@ -19429,10 +20319,10 @@ MonoBehaviour:
   activeWeapons: []
   inactiveWeapons:
   - {fileID: 1845276884}
-  - {fileID: 1617147727}
-  - {fileID: 145221482}
-  - {fileID: 2052401114}
-  - {fileID: 1640658632}
+  - {fileID: 1260667641}
+  - {fileID: 2117829164}
+  - {fileID: 722794975}
+  - {fileID: 1783176223}
   maxWeapon: 3
   maxLevelWepons: []
 --- !u!4 &2013950780
@@ -65622,33 +66512,33 @@ MonoBehaviour:
     attackInterval: 8
     amount: 1
     duration: 7
-    upgradeText: Power Up
-  - speed: 2
+    upgradeText: Damage +2
+  - speed: 1
+    damage: 7
+    range: 1.1
+    attackInterval: 7.75
+    amount: 2
+    duration: 7
+    upgradeText: Speed Up
+  - speed: 1.1
+    damage: 7
+    range: 1.2
+    attackInterval: 7.5
+    amount: 3
+    duration: 7
+    upgradeText: Damage +3
+  - speed: 1.1
     damage: 10
-    range: 2
-    attackInterval: 8
-    amount: 1
+    range: 1.3
+    attackInterval: 7.25
+    amount: 4
     duration: 7
-    upgradeText: Power Up
-  - speed: 3
-    damage: 15
-    range: 3
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 4
-    damage: 20
-    range: 4
-    attackInterval: 8
-    amount: 1
-    duration: 7
-    upgradeText: Power Up
-  - speed: 5
-    damage: 25
-    range: 5
-    attackInterval: 8
-    amount: 1
+    upgradeText: Speed Up
+  - speed: 1.2
+    damage: 10
+    range: 1.4
+    attackInterval: 7
+    amount: 5
     duration: 7
     upgradeText: Max Upgrade
   weaponLevel: 0
@@ -70527,6 +71417,96 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &2117829162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2117829163}
+  - component: {fileID: 2117829164}
+  m_Layer: 0
+  m_Name: DaggerThrow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2117829163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117829162}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1511291026}
+  m_Father: {fileID: 320603269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117829164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117829162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e655364a533d3b44fa39610b53cadc4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - speed: 7
+    damage: 5
+    range: 1
+    attackInterval: 1.5
+    amount: 1
+    duration: 0.5
+    upgradeText: Damage +2
+  - speed: 7
+    damage: 7
+    range: 1
+    attackInterval: 1.5
+    amount: 2
+    duration: 0.5
+    upgradeText: AttackSpeed Up
+  - speed: 7
+    damage: 7
+    range: 1
+    attackInterval: 1.25
+    amount: 3
+    duration: 0.5
+    upgradeText: Damage +3
+  - speed: 7
+    damage: 10
+    range: 1.5
+    attackInterval: 1
+    amount: 4
+    duration: 0.5
+    upgradeText: Damage +5
+  - speed: 10
+    damage: 7
+    range: 1.5
+    attackInterval: 1
+    amount: 4
+    duration: 0.5
+    upgradeText: Damage +3
+  weaponLevel: 0
+  statsUpdated: 0
+  icon: {fileID: -1283994490, guid: 99f10abcf979e904b883da0c6922d74f, type: 3}
+  damager: {fileID: 1511291024}
+  projectile: {fileID: 1511291027}
+  weaponRange: 5
+  hitEnemy:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &2128642187
 GameObject:
   m_ObjectHideFlags: 0
@@ -70726,6 +71706,151 @@ MonoBehaviour:
   - {fileID: 920928185}
   - {fileID: 379623267}
   levelUpPanel: {fileID: 1519500255}
+--- !u!1 &2142537035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2142537036}
+  - component: {fileID: 2142537039}
+  - component: {fileID: 2142537038}
+  - component: {fileID: 2142537037}
+  m_Layer: 0
+  m_Name: Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2142537036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142537035}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.077088, y: 0.037455797, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1260667640}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2142537037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142537035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e31051dac234b649941020343652a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 1
+  lifeTime: 100
+  growSpeed: 5
+  shouldKnockBack: 0
+  destroyParent: 0
+  infiniteDamager: 1
+  damageInterval: 0.25
+  destroyOnImpact: 0
+--- !u!58 &2142537038
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142537035}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 1.45
+--- !u!212 &2142537039
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142537035}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -188537759
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 0c78c8dd7f0745146b5b5c4fad8288e4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 4, y: 4}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

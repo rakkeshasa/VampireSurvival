@@ -1,4 +1,6 @@
 using JetBrains.Annotations;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyDamager : MonoBehaviour
@@ -11,6 +13,14 @@ public class EnemyDamager : MonoBehaviour
     [SerializeField] 
     private bool shouldKnockBack;
     public bool destroyParent = true;
+
+    public bool infiniteDamager;
+    public float damageInterval;
+    private float damageCounter;
+
+    private List<EnemyController> enemiesInRange = new List<EnemyController>();
+
+    public bool destroyOnImpact;
 
     void Start()
     {
@@ -38,13 +48,61 @@ public class EnemyDamager : MonoBehaviour
                 }
             }
         }
+
+        if(infiniteDamager)
+        {
+            damageCounter -= Time.deltaTime;
+
+            if(damageCounter <= 0)
+            {
+                damageCounter = damageInterval;
+                for(int i = 0; i < enemiesInRange.Count; i++)
+                {
+                    if (enemiesInRange[i] != null)
+                    {
+                        enemiesInRange[i].TakeDamage(Damage, shouldKnockBack);
+                    }
+                    else
+                    {
+                        enemiesInRange.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
+        if(!infiniteDamager)
         {
-            collision.GetComponent<EnemyController>().TakeDamage(Damage, shouldKnockBack);
+            if (collision.tag == "Enemy")
+            {
+                collision.GetComponent<EnemyController>().TakeDamage(Damage, shouldKnockBack);
+                
+                if(destroyOnImpact)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
+        else
+        {
+            if (collision.tag == "Enemy")
+            {
+                enemiesInRange.Add(collision.GetComponent<EnemyController>());
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(infiniteDamager)
+        {
+            if(collision.tag == "Enemy")
+            {
+                enemiesInRange.Remove(collision.GetComponent<EnemyController>());
+            }
         }
     }
 }

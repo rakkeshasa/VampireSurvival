@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -50,6 +50,9 @@ TagManager:
     locked: 0
   - name: PickUp
     uniqueID: 843641025
+    locked: 0
+  - name: Weapons
+    uniqueID: 4106429537
     locked: 0
   - name: Player
     uniqueID: 1839117617

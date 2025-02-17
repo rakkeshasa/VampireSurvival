@@ -13,6 +13,7 @@ public class PlayerLevelController : MonoBehaviour
     private int currentLevel = 1;
     private int maxLevel = 100;
 
+    // 무기 업글 목록
     public List<Weapon> upgradeWeapons;
 
     private void Awake()
@@ -66,11 +67,15 @@ public class PlayerLevelController : MonoBehaviour
         Time.timeScale = 0f;
 
         upgradeWeapons.Clear();
-        List<Weapon> availableWeapons = new List<Weapon>();
-        availableWeapons.AddRange(PlayerController.instance.activeWeapons);
 
+        // upgradeWeapons에서 랜덤하게 뽑은 무기를 담아둘 리스트
+        List<Weapon> availableWeapons = new List<Weapon>();
+        availableWeapons.AddRange(PlayerController.instance.activeWeapons); // 풀업인 무기는 넣지 않음
+
+        // 업그레이드 스킬이 새로운 스킬 획득보다 우선권을 갖도록
         if(availableWeapons.Count > 0)
         {
+            // 업그레이드 창이 랜덤하게 나타나도록(a스킬이 무조건 앞으로 온다는 것을 방지)
             int selected = Random.Range(0, availableWeapons.Count);
             upgradeWeapons.Add(availableWeapons[selected]);
             availableWeapons.RemoveAt(selected);
@@ -81,6 +86,7 @@ public class PlayerLevelController : MonoBehaviour
             availableWeapons.AddRange(PlayerController.instance.inactiveWeapons);
         }
         
+        // 남는 창에는 새로운 스킬 습득
         for(int i = upgradeWeapons.Count; i < 3; i++)
         {
             if (availableWeapons.Count > 0)
@@ -96,6 +102,7 @@ public class PlayerLevelController : MonoBehaviour
             UIController.instance.levelUpButtons[i].UpdateButton(upgradeWeapons[i]);
         }
 
+        // 풀업 스킬의 존재로 스킬 업글창이 모두 업뎃이 안된경우 비활성화
         for(int i = 0; i < UIController.instance.levelUpButtons.Length; i++)
         {
             if(i < upgradeWeapons.Count)

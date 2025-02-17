@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     private float knockBackTime = .5f;
     private float knockBackCounter;
 
-    private float despawnDistance = 20f;
+    private float despawnDistance = 30f;
 
 
 
@@ -33,37 +33,44 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if(knockBackCounter > 0)
+        if(PlayerController.instance.gameObject.activeSelf)
         {
-            knockBackCounter -= Time.deltaTime;
-
-            if(moveSpeed > 0)
+            if (knockBackCounter > 0)
             {
-                moveSpeed = -moveSpeed * 2f;
+                knockBackCounter -= Time.deltaTime;
+
+                if (moveSpeed > 0)
+                {
+                    moveSpeed = -moveSpeed * 2f;
+                }
+
+                if (knockBackCounter <= 0)
+                {
+                    moveSpeed = Mathf.Abs(moveSpeed * .5f);
+                }
             }
 
-            if(knockBackCounter <= 0)
+            rb.linearVelocity = (target.position - transform.position).normalized * moveSpeed;
+
+            if (knockBackCounter <= 0)
             {
-                moveSpeed = Mathf.Abs(moveSpeed * .5f);
+                sprite.flipX = rb.linearVelocityX > 0;
+            }
+
+            if (hitCounter > 0f)
+            {
+                hitCounter -= Time.deltaTime;
+            }
+
+            if (Vector3.Distance(target.position, transform.position) > despawnDistance)
+            {
+                Destroy(gameObject);
             }
         }
-
-        rb.linearVelocity = (target.position - transform.position).normalized * moveSpeed;
-
-        if (knockBackCounter <= 0)
+        else
         {
-            sprite.flipX = rb.linearVelocityX > 0;
-        }
-
-        if (hitCounter > 0f)
-        {
-            hitCounter -= Time.deltaTime;
-        }
-
-        if (Vector3.Distance(target.position, transform.position) > despawnDistance)
-        {
-            // enemyPool.ReturnEnemy(enemyType, gameObject); // 몬스터 반환
-            Destroy(gameObject);
+            // 플레이어가 죽으면 몬스터 정지
+            rb.linearVelocity = Vector2.zero;
         }
     }
 

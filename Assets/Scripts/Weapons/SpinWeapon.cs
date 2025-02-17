@@ -15,7 +15,6 @@ public class SpinWeapon : Weapon
     {
         holder = transform.Find("Holder");
         SetStats();
-        // UIController.instance.levelUpButtons[0].UpdateButton(this);
     }
 
     void Update()
@@ -27,7 +26,13 @@ public class SpinWeapon : Weapon
         {
             spawnCounter = spawnInterval;
 
-            Instantiate(fireballToSpawn, fireballToSpawn.position, fireballToSpawn.rotation, holder).gameObject.SetActive(true);
+            // Instantiate(fireballToSpawn, fireballToSpawn.position, fireballToSpawn.rotation, holder).gameObject.SetActive(true);
+            for(int i = 0; i < stats[weaponLevel].amount; i++)
+            {
+                float rot = 360f / stats[weaponLevel].amount * i;
+
+                Instantiate(fireballToSpawn, fireballToSpawn.position, Quaternion.Euler(0f, 0f, rot), holder).gameObject.SetActive(true);
+            }
         }
 
         if(statsUpdated)

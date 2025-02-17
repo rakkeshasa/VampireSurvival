@@ -26,7 +26,11 @@ public class PlayerController : MonoBehaviour
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
 
-        AddWeapon(Random.Range(0, inactiveWeapons.Count));
+        if(activeWeapons.Count == 0)
+        {
+            AddWeapon(Random.Range(0, inactiveWeapons.Count));
+        }
+        
     }
 
     void Update()
@@ -58,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddWeapon(int index)
     {
+        // 플레이어 초반에 주어지는 기본 무기용
         if(index < inactiveWeapons.Count)
         {
             activeWeapons.Add(inactiveWeapons[index]);
@@ -68,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddWeapon(Weapon newWeapon)
     {
+        // 레벨업 시 장착할 무기용
         newWeapon.gameObject.SetActive(true);
         activeWeapons.Add(newWeapon);
         inactiveWeapons.Remove(newWeapon);
