@@ -363,6 +363,11 @@ public void LevelUp()
     {
         weaponLevel++;
         statsUpdated = true;
+        if(weaponLevel >= stats.Count - 1)
+        {
+            PlayerController.instance.maxLevelWepons.Add(this);
+            PlayerController.instance.activeWeapons.Remove(this);
+        }
     }
 }
 
@@ -377,3 +382,50 @@ if(statsUpdated)
 ```
 플레이어가 레벨업을 하게 되면 무기 업그레이드 창이 뜨며 3개의 선택창에서 업그레이드할 무기를 고르게 됩니다.</br>
 업그레이드할 무기를 고르면 해당 무기의 레벨을 올리는 함수를 호출하고 해당 레벨에 맞는 스탯을 갖게 했습니다.</br></br>
+
+
+```
+if(availableWeapons.Count > 0)
+{
+    int selected = Random.Range(0, availableWeapons.Count);
+    upgradeWeapons.Add(availableWeapons[selected]);
+    availableWeapons.RemoveAt(selected);
+}
+
+if(PlayerController.instance.activeWeapons.Count + PlayerController.instance.maxLevelWepons.Count < PlayerController.instance.maxWeapon)
+{
+    availableWeapons.AddRange(PlayerController.instance.inactiveWeapons);
+}
+
+for(int i = upgradeWeapons.Count; i < 3; i++)
+{
+    if (availableWeapons.Count > 0)
+    {
+        int selected = Random.Range(0, availableWeapons.Count);
+        upgradeWeapons.Add(availableWeapons[selected]);
+        availableWeapons.RemoveAt(selected);
+    }
+}
+
+for(int i = 0; i < upgradeWeapons.Count; i++)
+{
+    UIController.instance.levelUpButtons[i].UpdateButton(upgradeWeapons[i]);
+}
+
+for(int i = 0; i < UIController.instance.levelUpButtons.Length; i++)
+{
+    if(i < upgradeWeapons.Count)
+    {
+        UIController.instance.levelUpButtons[i].gameObject.SetActive(true);
+    }
+    else
+    {
+        UIController.instance.levelUpButtons[i].gameObject.SetActive(false);
+    }
+}
+```
+플레이어는 총 3개의 무기를 가질 수 있으며 무기 슬롯이 꽉 차면 업그레이드 창밖에 안뜨게 했습니다.</BR>
+우선 활성화된 무기를 업그레이드 창에 띄워줄 목록인 availableWeapons 리스트에 넣고 이 중에서도 업그레이드 창에서 랜덤하게 뜰 수 있도록 했습니다.</br>
+만약 플레이어가 무기를 3개 미만으로 가지고 있다면 아직 비활성화된 무기를 모두 갖고와 availableWeapons 리스트에 넣어 새로운 무기를 습득할 수 있게 했습니다.</br>
+무기가 풀업그레이드가 되면 업그레이드 창에서 안뜨게 하기 위해 따로 maxLevelWeapons를 관리했으며 풀업그레이드 무기는 availableWeapons리스트에 안넣는 대신 따로 수를 카운트해 업그레이드 창이 갱신이 안되도록 했습니다.</br>
+업그레이드 창이 갱신이 안될 경우에는 보여줄 필요가 없기 때문에 해당 오브젝트를 비활성화하여 안보이게 했습니다.</br></br>
