@@ -27,6 +27,8 @@ public class WeaponThrower : Weapon
             {
                 Instantiate(damager, damager.transform.position, damager.transform.rotation).gameObject.SetActive(true);
             }
+
+            SFXManager.instance.PitchControl(4);
         }
     }
 

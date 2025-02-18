@@ -114,7 +114,7 @@ public class PlayerStatController : MonoBehaviour
         CoinController.instance.SpendCoin(maxWeapons[maxWeaponsLevel].cost);
         UpdateDisPlay();
 
-        PlayerController.instance.maxWeapon = Mathf.RoundToInt(maxWeapons[maxWeaponsLevel].value);
+        PlayerController.instance.maxWeapons = Mathf.RoundToInt(maxWeapons[maxWeaponsLevel].value);
     }
 }
 

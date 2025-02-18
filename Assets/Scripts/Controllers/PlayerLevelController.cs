@@ -43,6 +43,7 @@ public class PlayerLevelController : MonoBehaviour
         }
 
         UIController.instance.UpdateExp(currentEXP, expLevels[currentLevel], currentLevel);
+        SFXManager.instance.PitchControl(2);
     }
 
     public void SpawnExp(Vector3 position, int exp)
@@ -81,7 +82,7 @@ public class PlayerLevelController : MonoBehaviour
             availableWeapons.RemoveAt(selected);
         }
 
-        if(PlayerController.instance.activeWeapons.Count + PlayerController.instance.maxLevelWepons.Count < PlayerController.instance.maxWeapon)
+        if(PlayerController.instance.activeWeapons.Count + PlayerController.instance.maxLevelWepons.Count < PlayerController.instance.maxWeapons)
         {
             availableWeapons.AddRange(PlayerController.instance.inactiveWeapons);
         }

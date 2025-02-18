@@ -48,7 +48,6 @@ public class EnemySpawner : MonoBehaviour
                 {
                     spawnCounter = waves[currentWave].spawnInterval;
                     GameObject newEnemy = Instantiate(waves[currentWave].enemy, SelectSpawnPoint(), Quaternion.identity);
-                    // spawnedEnemies.Add(newEnemy);
                 }
             }
         }

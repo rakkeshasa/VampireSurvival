@@ -40,6 +40,8 @@ public class ProjectileWeapon : Weapon
 
                     Instantiate(projectile, projectile.transform.position, projectile.transform.rotation).gameObject.SetActive(true);
                 }
+
+                SFXManager.instance.PitchControl(6);
             }
         }
     }

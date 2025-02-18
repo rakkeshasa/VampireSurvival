@@ -97,6 +97,12 @@ public class EnemyController : MonoBehaviour
             {
                 CoinController.instance.DropCoin(transform.position, coinValue);
             }
+
+            SFXManager.instance.PitchControl(0);
+        }
+        else
+        {
+            SFXManager.instance.PitchControl(1);
         }
 
         DamageUIController.instance.SetDamageUI(damage, transform.position);

@@ -10,7 +10,7 @@ public class PlayerHealthController : MonoBehaviour
     public float maxHealth;
 
     public Slider healthSlider;
-
+    public GameObject deathEffect;
     private void Awake()
     {
         instance = this;
@@ -40,7 +40,10 @@ public class PlayerHealthController : MonoBehaviour
         if (currentHealth < 0)
         {
             // setactive와 destroy의 차이?
-           gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            LevelManager.Instance.EndLevel();
+            Instantiate(deathEffect, transform.position, transform.rotation);
+            SFXManager.instance.PlaySFX(3);
         }
 
         healthSlider.value = currentHealth;
