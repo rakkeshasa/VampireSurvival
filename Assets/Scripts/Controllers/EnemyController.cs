@@ -22,7 +22,8 @@ public class EnemyController : MonoBehaviour
 
     private float despawnDistance = 30f;
 
-
+    public int coinValue = 1;
+    public float coinDropRate = .5f;
 
     void Start()
     {
@@ -91,6 +92,11 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
             PlayerLevelController.instance.SpawnExp(transform.position, exp);
+            
+            if(Random.value <= coinDropRate)
+            {
+                CoinController.instance.DropCoin(transform.position, coinValue);
+            }
         }
 
         DamageUIController.instance.SetDamageUI(damage, transform.position);

@@ -114,5 +114,7 @@ public class PlayerLevelController : MonoBehaviour
                 UIController.instance.levelUpButtons[i].gameObject.SetActive(false);
             }
         }
+
+        PlayerStatController.instance.UpdateDisPlay();
     }
 }

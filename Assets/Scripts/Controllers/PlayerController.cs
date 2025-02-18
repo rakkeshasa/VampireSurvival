@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float pickupRange = 1.5f;
 
     public List<Weapon> activeWeapons, inactiveWeapons;
-    public int maxWeapon = 3;
+    public int maxWeapons = 3;
 
     [HideInInspector]
     public List<Weapon> maxLevelWepons = new List<Weapon>();
@@ -30,7 +30,10 @@ public class PlayerController : MonoBehaviour
         {
             AddWeapon(Random.Range(0, inactiveWeapons.Count));
         }
-        
+
+        moveSpeed = PlayerStatController.instance.moveSpeed[0].value;
+        pickupRange = PlayerStatController.instance.pickupRange[0].value;
+        maxWeapons = Mathf.RoundToInt(PlayerStatController.instance.maxWeapons[0].value);
     }
 
     void Update()

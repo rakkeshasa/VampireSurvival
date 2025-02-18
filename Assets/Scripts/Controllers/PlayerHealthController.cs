@@ -6,10 +6,8 @@ public class PlayerHealthController : MonoBehaviour
 {
     public static PlayerHealthController instance;
 
-    [SerializeField]
-    private float currentHealth;
-    [SerializeField]
-    private float maxHealth;
+    public float currentHealth;
+    public float maxHealth;
 
     public Slider healthSlider;
 
@@ -20,6 +18,7 @@ public class PlayerHealthController : MonoBehaviour
 
     void Start()
     {
+        maxHealth = PlayerStatController.instance.health[0].value;
         currentHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
