@@ -204,6 +204,8 @@ MonoBehaviour:
   damage: 15
   delayAttack: 5
   knockBackTime: 0.5
+  coinValue: 4
+  coinDropRate: 0.5
 --- !u!114 &1439845677655170197
 MonoBehaviour:
   m_ObjectHideFlags: 0
