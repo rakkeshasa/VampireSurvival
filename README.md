@@ -190,6 +190,28 @@ DamageUI를 세팅하는 함수는 풀에 남아있는 DamageUI가 있나 체크
 Text가 일정시간동안 데미지를 출력하면 파괴하지 않고 다시 풀에 넣고 비활성화시킴으로써 다음에 사용할 시 다시 재생성되지 않도록했습니다.</BR></BR>
 
 ### 무기 구현
+<strong>FireBall</strong></br>
+![fireball](https://github.com/user-attachments/assets/f24b9939-5734-4eaf-951e-c3a25c120ed1)
+</br>
+FireBall 무기는 플레이어 주변을 회전하는 화염구로 무기를 강화할수록 회전하는 화염구의 개수가 늘어납니다.</br>
+화염구가 다른 화염구와 일정한 각도를 맞추기 위해 화염구를 갖고 있는 Holder를 따로 두어 관리하도록 했습니다.</br>
+
+```
+holder.rotation = Quaternion.Euler(0f, 0f, holder.rotation.eulerAngles.z + (rotateSpeed * Time.deltaTime * stats[weaponLevel].speed));
+spawnCounter -= Time.deltaTime;
+if (spawnCounter <= 0)
+{
+    spawnCounter = spawnInterval;
+    for(int i = 0; i < stats[weaponLevel].amount; i++)
+    {
+        float rot = 360f / stats[weaponLevel].amount * i;
+        Instantiate(fireballToSpawn, fireballToSpawn.position, Quaternion.Euler(0f, 0f, rot), holder).gameObject.SetActive(true);
+    }
+}
+```
+화염구는 Holder에 배치되며 Holder는 현재 무기의 강화상태에 따른 화염구의 개수에 따라 각도를 계산해 화염구들이 일정한 각도로 퍼지도록 합니다.</br>
+퍼뜨린 화염구가 회전하는것이 아니라 Holder 자체를 회전시켜 화염구들이 일정한 각도를 유지한채로 플레이어 주변을 회전하도록 했습니다.</br></br>
+
 <strong>HolyZone</strong></br>
 ![holyzone](https://github.com/user-attachments/assets/d52663a3-2957-4c75-88e0-d04706c94cb7)
 </br>
@@ -221,6 +243,8 @@ if(damageCounter <= 0)
 몬스터가 무기 구역을 벗어나면 리스트에서 제거해 더 이상 피해를 입지 않게 했습니다.</br></br>
 
 <strong>Dagger</strong></br>
+![dagger](https://github.com/user-attachments/assets/f42e1c41-1cd9-4fc8-80f4-e44afd4bab42)
+</br>
 Dagger 무기는 자동으로 몬스터의 위치를 포착하여 빠르게 날아가는 무기입니다.</br>
 
 ```
@@ -255,8 +279,8 @@ Axe 무기는 현실에서 도끼를 던지는 것처럼 포물선을 그리며 
 rb.linearVelocity = new Vector2(Random.Range(-throwPower, throwPower), throwPower);
 transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotateSpeed * 360f * Time.deltaTime * Mathf.Sign(rb.linearVelocityX)));
 ```
-무기가 포물선을 그리면서 떨어지게 하기 위해 RigidBody를 붙여 중력 효과를 입혔으며 던지는 힘을 따로 받아 RigidBody에 나아가는 힘을 적용했습니다.</br>
-또한 무기가 굴러가는거처럼 회전시키기 위해 rotation을 싸인 함수를 이용해 회전시켰습니다.</br></br>
+무기가 아래로 떨어지는 효과를 주기 위해 RigidBody를 붙여 중력 효과를 입혔으며 던지는 힘을 RigidBody에 적용해 포물선을 그리며 나아가도록 했습니다.</br>
+또한 무기가 회전하면서 떨어뜨리기 위해 Sign함수를 통해 rotation을 조정해 도끼가 회전하면서 떨어지도록 했습니다.</br>
 
 
 
