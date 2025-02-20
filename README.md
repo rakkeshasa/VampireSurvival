@@ -157,6 +157,8 @@ public void TakeDamage(float damage)
 
 ### 데미지 표시
 
+![damageText](https://github.com/user-attachments/assets/38f76146-71ff-47f4-ae4c-37b1437c4846)
+</br>
 플레이어의 무기에 몬스터가 피해를 입으면 몬스터의 위치에 데미지가 표시됩니다.</br>
 데미지 표시는 피격된 몬스터의 수만큼 Canvas에서 Text를 통해 수치를 표현하게 됩니다.</br>
 데미지 Text를 매번 파괴했다가 재생성하지 않고 풀링 시스템을 통해 Text를 더 효율적으로 관리했습니다.</br>
@@ -261,6 +263,8 @@ transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z +
 
 ### 무기 업그레이드
 
+![upgrade](https://github.com/user-attachments/assets/7cb079e0-22d3-4851-a86d-d908f669a397)
+</br>
 플레이어는 가지고 있는 무기를 레벨업을 할 때마다 강화할 수 있습니다.</br>
 플레이어가 레벨업을 하면 강화창이 뜨며, 강화창에는 보유하고 있는 무기를 강화하거나 새로운 무기를 취득할 수 있습니다.</br>
 기본적으로 주어지는 무기칸은 3칸이며 스탯을 업그레이드해 총 5개까지 무기칸을 늘릴 수 있습니다.</br>
@@ -300,10 +304,14 @@ for(int i = upgradeWeapons.Count; i < 3; i++)
 하지만 이미 강화가 최대치인 무기는 무기 강화칸에 뜰 필요가 없으므로 activeWeapons만 리스트에 담습니다.</br>
 리스트에 담은 무기들을 랜덤하게 뽑아 무기 강화칸에 강화할 무기가 무작위적으로 출력되도록 했습니다.</br></br>
 
+![upgrade2](https://github.com/user-attachments/assets/549cc7a8-6b7a-43ee-b41d-90c8044a5ba4)
+</br>
 만약 보유한 무기가 3개가 아닐 시 inactiveWeapons 상태인 무기를 모두 리스트에 담아 랜덤하게 뽑아 무기 강화칸에 뜨도록 했습니다.</br>
 보유하지 않은 무기가 무기 강화칸에 뜰 시, 무기를 업그레이드하는 것이 아닌 획득하는 것으로 보일 수 있게 텍스트가 다르게 출력됩니다.</br></br>
 
 ### 결과창 구현
+![end](https://github.com/user-attachments/assets/22c9d340-0d59-4b62-b4f1-f76cf9519bd4)
+</br>
 
 플레이어가 몬스터에게 죽으면 결과창이 뜨며 생존한 시간을 나타내도록 했습니다.</br>
 플레이어가 체력이 0이 되면 캐릭터에게 죽는 이펙트를 출력한 후에 결과창이 활성화되도록 하기 위해 코루틴을 사용했습니다.</br>
