@@ -243,7 +243,7 @@ if(damageCounter <= 0)
 몬스터가 무기 구역을 벗어나면 리스트에서 제거해 더 이상 피해를 입지 않게 했습니다.</br></br>
 
 <strong>Dagger</strong></br>
-![dagger](https://github.com/user-attachments/assets/f42e1c41-1cd9-4fc8-80f4-e44afd4bab42)
+![dagger](https://github.com/user-attachments/assets/b113ee11-16d5-496e-aba1-7e9e507df670)
 </br>
 Dagger 무기는 자동으로 몬스터의 위치를 포착하여 빠르게 날아가는 무기입니다.</br>
 
@@ -327,10 +327,14 @@ for(int i = upgradeWeapons.Count; i < 3; i++)
 하지만 이미 강화가 최대치인 무기는 무기 강화칸에 뜰 필요가 없으므로 activeWeapons만 리스트에 담습니다.</br>
 리스트에 담은 무기들을 랜덤하게 뽑아 무기 강화칸에 강화할 무기가 무작위적으로 출력되도록 했습니다.</br></br>
 
-![upgrade2](https://github.com/user-attachments/assets/549cc7a8-6b7a-43ee-b41d-90c8044a5ba4)
-</br>
 만약 보유한 무기가 3개가 아닐 시 inactiveWeapons 상태인 무기를 모두 리스트에 담아 랜덤하게 뽑아 무기 강화칸에 뜨도록 했습니다.</br>
 보유하지 않은 무기가 무기 강화칸에 뜰 시, 무기를 업그레이드하는 것이 아닌 획득하는 것으로 보일 수 있게 텍스트가 다르게 출력됩니다.</br></br>
+
+보유한 무기가 최대치이며 강화가 완료된 무기가 있다면 더 이상 무기 강화칸에 출력할 무기가 없게됩니다.</br>
+출력할 무기가 없는 강화칸은 비활성화 하기 위해 upgradeWeapons의 리스트에 담긴 수만큼만 강화 창을 활성화시키고 나머지는 비활성화시켰습니다.</br>
+
+![upgrade2](https://github.com/user-attachments/assets/549cc7a8-6b7a-43ee-b41d-90c8044a5ba4)
+</br></br>
 
 ### 결과창 구현
 ![end](https://github.com/user-attachments/assets/22c9d340-0d59-4b62-b4f1-f76cf9519bd4)
