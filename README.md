@@ -1,7 +1,26 @@
 # VampireSurvival
-Unity로 뱀서류 게임 만들기
+![main](https://github.com/user-attachments/assets/22359ac1-a44d-47aa-aac1-553c9e7a3406)</br>
+Unity로 뱀파이어 서바이벌 모작 제작</br>
 
+목차
 ---
+- [간단한 소개](#간단한-소개)
+- [플레이 영상](#플레이-영상)
+
+## 간단한 소개
+
+</BR>
+Vampire Survivor를 모작한 게임입니다.</BR>
+플레이어는 자신이 가진 무기를 가지고 몰려오는 몬스터 웨이브를 막아내면서 살아남는게 묵표입니다.</BR>
+몬스터를 잡으면 경험치와 골드를 획득할 수 있으며, 레벨업을 할 때마다 무기를 강화하거나 캐릭터를 성장시킬 수 있습니다.</BR></BR>
+
+## 플레이 영상
+[![Video Label](http://img.youtube.com/vi/FfWsosPWtG4/0.jpg)](https://youtu.be/FfWsosPWtG4)
+</br>
+👀Link: https://youtu.be/FfWsosPWtG4</BR>
+이미지나 주소 클릭하시면 영상을 보실 수 있습니다. </BR>
+
+## 기능 구현
 
 ### 플레이어 이동 구현
 
