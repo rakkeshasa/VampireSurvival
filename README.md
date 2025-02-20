@@ -6,6 +6,14 @@ Unity로 뱀파이어 서바이벌 모작 제작</br>
 ---
 - [간단한 소개](#간단한-소개)
 - [플레이 영상](#플레이-영상)
+- [기능 구현](#기능-구현)
+  * [플레이어 이동](#플레이어-이동)
+  * [몬스터 웨이브 구현](#몬스터-웨이브-구현)
+  * [데미지 주기](#데미지-주기)
+  * [데미지 표시](#데미지-표시)
+  * [무기 구현](#무기-구현)
+  * [무기 강화](#무기-강화)
+  * [결과창 구현](#결과창-구현)
 
 ## 간단한 소개
 ![intro](https://github.com/user-attachments/assets/e6cc4db2-19d7-4a5d-a1b6-f18d8ca7d749)
@@ -23,7 +31,7 @@ Vampire Survivor를 모작한 게임입니다.</BR>
 
 ## 기능 구현
 
-### 플레이어 이동 구현
+### 플레이어 이동
 
 ```
 Vector3 moveInput = new Vector3(0f, 0f, 0f);
@@ -280,11 +288,9 @@ rb.linearVelocity = new Vector2(Random.Range(-throwPower, throwPower), throwPowe
 transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotateSpeed * 360f * Time.deltaTime * Mathf.Sign(rb.linearVelocityX)));
 ```
 무기가 아래로 떨어지는 효과를 주기 위해 RigidBody를 붙여 중력 효과를 입혔으며 던지는 힘을 RigidBody에 적용해 포물선을 그리며 나아가도록 했습니다.</br>
-또한 무기가 회전하면서 떨어뜨리기 위해 Sign함수를 통해 rotation을 조정해 도끼가 회전하면서 떨어지도록 했습니다.</br>
+또한 무기가 회전하면서 떨어뜨리기 위해 Sign함수를 통해 rotation을 조정해 도끼가 회전하면서 떨어지도록 했습니다.</br></br>
 
-
-
-### 무기 업그레이드
+### 무기 강화
 
 ![upgrade](https://github.com/user-attachments/assets/7cb079e0-22d3-4851-a86d-d908f669a397)
 </br>
