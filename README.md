@@ -152,6 +152,9 @@ public void TakeDamage(float damage)
 ```
 몬스터는 죽으면 경험치와 코인을 바닥에 떨어뜨리고, 만약 피해입은 무기가 넉백류 스킬이라면 넉백 시간을 체크하는 카운터를 두어 Update문에서 넉백 시간동안 몬스터가 밀려나도록 했습니다.</br></br>
 
+### 무기 알고리즘
+
+
 ### 데미지 표시
 
 플레이어의 무기에 몬스터가 피해를 입으면 몬스터의 위치에 데미지가 표시됩니다.</br>
@@ -244,26 +247,10 @@ Dagger가 몬스터를 향해 방향을 맞추기 위해 몬스터의 위치를 
 몬스터의 위치는 몬스터에게 Enemy 레이어를 적용해서 무기 레벨의 범위 안에 있는 몬스터를 탐색하고 배열에 넣습니다.</br>
 배열에 있는 몬스터 중 랜덤하게 1개를 뽑아 해당 몬스터 방향으로 Dagger를 소환하고 나아가게 합니다.</br></br>
 
-### Sword 무기 구현
-Sword 무기는 플레이어로부터 정해진 방향으로 찔러 방향에는 제한이 있지만 데미지는 강력한 무기입니다.</br>
-
-```
-for(int i = 0; i < stats[weaponLevel].amount; i++)
-{
-    float rot = (360f / stats[weaponLevel].amount) * i;
-    Instantiate(damager, damager.transform.position, Quaternion.Euler(0f, 0f, damager.transform.rotation.eulerAngles.z + rot), transform).gameObject.SetActive(true);
-}
-```
-무기가 업그레이드 하면서 찌르는 무기가 1개씩 증가하며 일정한 각도로 검을 찌르게 하기 위해 360도를 무기의 개수만큼 나눠 각도를 구했습니다.</br>
-이후 해당 각도에 맞춰 무기를 일정 거리만큼 나가게 해 찌르는 것처럼 보이게 했습니다.</br.
-
 ### Axe 무기 구현
 Axe 무기는 현실에서 도끼를 던지는 것처럼 포물선을 그리며 아래로 떨어지는 무기입니다.</br>
 
 ```
-public float throwPower;
-public Rigidbody2D rb;
-
 rb.linearVelocity = new Vector2(Random.Range(-throwPower, throwPower), throwPower);
 transform.rotation = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z + (rotateSpeed * 360f * Time.deltaTime * Mathf.Sign(rb.linearVelocityX)));
 ```
@@ -316,4 +303,29 @@ for(int i = upgradeWeapons.Count; i < 3; i++)
 만약 보유한 무기가 3개가 아닐 시 inactiveWeapons 상태인 무기를 모두 리스트에 담아 랜덤하게 뽑아 무기 강화칸에 뜨도록 했습니다.</br>
 보유하지 않은 무기가 무기 강화칸에 뜰 시, 무기를 업그레이드하는 것이 아닌 획득하는 것으로 보일 수 있게 텍스트가 다르게 출력됩니다.</br></br>
 
+### 결과창 구현
 
+플레이어가 몬스터에게 죽으면 결과창이 뜨며 생존한 시간을 나타내도록 했습니다.</br>
+플레이어가 체력이 0이 되면 캐릭터에게 죽는 이펙트를 출력한 후에 결과창이 활성화되도록 하기 위해 코루틴을 사용했습니다.</br>
+
+```
+public void EndLevel()
+{
+    gameActive = false;
+    StartCoroutine(EndLevelCor());
+}
+
+IEnumerator EndLevelCor()
+{
+    yield return new WaitForSeconds(waitEndScreen);
+
+    float minutes = Mathf.FloorToInt(timer / 60f);
+    float seconds = Mathf.FloorToInt(timer % 60f);
+
+    UIController.instance.endTimeText.text = minutes.ToString() + " : " + seconds.ToString("00");
+    UIController.instance.levelEndPanel.SetActive(true);
+}
+```
+
+플레이어가 죽으면 캐릭터가 비활성화되면서 EndLevel을 호출하고 지정해놓은 죽는 이펙트를 화면에 생성합니다.</br>
+EndLevel은 게임을 정지시키고 코루틴을 실행해 1초 뒤에 결과창을 띄움으로써 죽는 이펙트가 스킵되지 않도록 했습니다.</br>
