@@ -152,9 +152,6 @@ public void TakeDamage(float damage)
 ```
 몬스터는 죽으면 경험치와 코인을 바닥에 떨어뜨리고, 만약 피해입은 무기가 넉백류 스킬이라면 넉백 시간을 체크하는 카운터를 두어 Update문에서 넉백 시간동안 몬스터가 밀려나도록 했습니다.</br></br>
 
-### 무기 알고리즘
-
-
 ### 데미지 표시
 
 ![damageText](https://github.com/user-attachments/assets/38f76146-71ff-47f4-ae4c-37b1437c4846)
@@ -192,39 +189,39 @@ UI를 담당하는 UIController에서 DamageUI의 리스트를 갖고 있으며 
 DamageUI를 세팅하는 함수는 풀에 남아있는 DamageUI가 있나 체크하고 있으면 제일 첫번째 DamageUI를 활성화하고 없다면 새로운 DamageUI를 Canvas의 자식으로 생성합니다.</br>
 Text가 일정시간동안 데미지를 출력하면 파괴하지 않고 다시 풀에 넣고 비활성화시킴으로써 다음에 사용할 시 다시 재생성되지 않도록했습니다.</BR></BR>
 
+### 무기 구현
+<strong>HolyZone</strong></br>
+![holyzone](https://github.com/user-attachments/assets/d52663a3-2957-4c75-88e0-d04706c94cb7)
+</br>
 
-### HolyZone 무기 구현
 HolyZone는 몬스터가 플레이어한테 일정 거리이내에 들어오면 지속적인 피해를 입는 무기입니다.</br>
-HolyZone무기에 원형 콜라이더를 붙여 OnTriggerEnter 함수를 통해 가까이 있는 모든 몬스터들을 리스트에 담았습니다.</br>
+무기에 원형 콜라이더를 붙여 OnTriggerEnter 함수를 통해 가까이 있는 모든 몬스터들을 리스트에 담았습니다.</br>
 
 ```
-if(infiniteDamager)
-{
-    damageCounter -= Time.deltaTime;
+damageCounter -= Time.deltaTime;
 
-    if(damageCounter <= 0)
+if(damageCounter <= 0)
+{
+    damageCounter = damageInterval;
+    for(int i = 0; i < enemiesInRange.Count; i++)
     {
-        damageCounter = damageInterval;
-        for(int i = 0; i < enemiesInRange.Count; i++)
+        if (enemiesInRange[i] != null)
         {
-            if (enemiesInRange[i] != null)
-            {
-                enemiesInRange[i].TakeDamage(Damage, shouldKnockBack);
-            }
-            else
-            {
-                enemiesInRange.RemoveAt(i);
-                i--;
-            }
+            enemiesInRange[i].TakeDamage(Damage, shouldKnockBack);
+        }
+        else
+        {
+            enemiesInRange.RemoveAt(i);
+            i--;
         }
     }
 }
 ```
-지속 피해를 구현하기 위해 카운터를 통해 몇 틱마다 데미지를 입힐지 계산했으며, 리스트에 담긴 몬스터들을 순회하면서 데미지를 입혔습니다.</br>
+지속 피해를 구현하기 위해 카운터를 통해 몇 틱마다 데미지를 입힐지 damageCounter를 통해 계산했으며, 카운터가 0이 될 때마다 리스트에 담긴 몬스터들을 순회하면서 데미지를 입혔습니다.</br>
 몬스터가 무기 구역을 벗어나면 리스트에서 제거해 더 이상 피해를 입지 않게 했습니다.</br></br>
 
-### Dagger 무기 구현
-Dagger 무기는 빠르게 일직선 상으로 단검을 던지는 스킬입니다.</br>
+<strong>Dagger</strong></br>
+Dagger 무기는 자동으로 몬스터의 위치를 포착하여 빠르게 날아가는 무기입니다.</br>
 
 ```
 public LayerMask hitEnemy;
@@ -234,7 +231,6 @@ if(enemies.Length > 0 )
 {
     for(int i = 0; i < stats[weaponLevel].amount; i++)
     {
-        // 투사체에 맞은 개체 중 랜덤하게 뽑아 데미지 주기
         Vector3 targetPos = enemies[Random.Range(0, enemies.Length)].transform.position;
         
         Vector3 dir = targetPos - transform.position;
@@ -245,11 +241,14 @@ if(enemies.Length > 0 )
     }
 }
 ```
-Dagger가 몬스터를 향해 방향을 맞추기 위해 몬스터의 위치를 파악해야합니다.</br>
-몬스터의 위치는 몬스터에게 Enemy 레이어를 적용해서 무기 레벨의 범위 안에 있는 몬스터를 탐색하고 배열에 넣습니다.</br>
-배열에 있는 몬스터 중 랜덤하게 1개를 뽑아 해당 몬스터 방향으로 Dagger를 소환하고 나아가게 합니다.</br></br>
+Dagger가 몬스터를 향해 날아가기 위해서는 몬스터의 위치를 파악해야합니다.</br>
+몬스터의 위치는 몬스터에게 Enemy 레이어를 적용해서 무기가 몬스터를 탐지하는 범위 안에 있는 몬스터를 배열에 넣습니다.</br>
+배열에 있는 몬스터 중 랜덤하게 1개를 뽑아 플레이어의 위치와 몬스터의 위치를 통해 각도를 구한 후 해당 방향으로 무기를 생성했습니다.</br></br>
 
-### Axe 무기 구현
+<strong>Axe</strong></br>
+![axe](https://github.com/user-attachments/assets/0503d903-1091-4d83-896d-674822cfa47f)
+</br>
+
 Axe 무기는 현실에서 도끼를 던지는 것처럼 포물선을 그리며 아래로 떨어지는 무기입니다.</br>
 
 ```
